@@ -1,0 +1,16 @@
+/* TaskColumn.module.css */
+.column {
+  background-color: #f4f5f7;
+  border-radius: 8px;
+  width: 300px;
+  padding: 15px;
+  flex-shrink: 0;
+}
+.column h3 {
+  text-align: left;
+  font-size: 16px;
+  color: #5e6c84;
+}
+.taskList {
+  min-height: 100px;
+}

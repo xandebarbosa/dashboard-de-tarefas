@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# Dashboard de Tarefas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é um projeto desenvolvido em **React** que demonstra a aplicação de princípios modernos de arquitetura de software, como **Clean Architecture, SOLID e Clean Code**.  
+A aplicação permite aos usuários criar, visualizar e gerenciar tarefas de forma intuitiva, oferecendo uma experiência de usuário fluida e interativa.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Funcionalidades
 
-### `npm start`
+- **Visualização Kanban:** As tarefas são organizadas em colunas que representam seu estado atual, facilitando a visualização do fluxo de trabalho.
+- **Gerenciamento de Tarefas:**
+  - Adicione novas tarefas, que entram automaticamente na coluna "Pendente".
+  - Mova tarefas entre as colunas ("Avançar" / "Voltar") para atualizar seu status.
+- **Gerenciamento de Estado Centralizado:** Utiliza **Redux Toolkit** para um gerenciamento de estado previsível e escalável.
+- **Visualização de Dados:** Apresenta um gráfico de pizza que mostra a distribuição percentual das tarefas em cada estado, oferecendo um resumo visual do progresso.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🏗️ Padrões de Projeto e Arquitetura
 
-### `npm test`
+Este projeto foi estruturado para ser **escalável, manutenível e fácil de testar**, seguindo os seguintes princípios:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔹 Clean Architecture
 
-### `npm run build`
+A aplicação é dividida em camadas de responsabilidade, com uma regra de dependência clara: as camadas externas dependem das internas, mas nunca o contrário.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **`src/pages` (Camada de Apresentação):** Representa a tela principal da aplicação (`DashboardPage`).
+- **`src/components` (Camada de Apresentação):** Contém componentes de UI reutilizáveis, como `TaskCard`, `TaskColumn`, `TaskForm` e `TaskChart`.
+- **`src/features` (Camada de Estado/Domínio):** Contém os "slices" do Redux. O `tasksSlice.js` encapsula toda a lógica de negócio e as regras de manipulação do estado das tarefas.
+- **`src/app` (Camada de Infraestrutura):** Configura e inicializa serviços centrais da aplicação, como a `store` do Redux.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🔹 SOLID
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **S (Responsabilidade Única):** Cada componente e módulo tem apenas uma razão para mudar.
 
-### `npm run eject`
+  - Exemplo: O componente `<TaskCard />` é responsável apenas por exibir uma tarefa. Toda a lógica de movimentação está centralizada no `tasksSlice`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **O (Aberto/Fechado):** O código está aberto para extensão, mas fechado para modificação.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - Exemplo: Para adicionar uma nova coluna (ex: "Em Revisão"), basta incluir o status no `tasksSlice` e criar uma nova instância de `<TaskColumn />`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **L (Substituição de Liskov):** Os componentes funcionam de forma consistente com diferentes dados.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  - Exemplo: `<TaskColumn />` pode receber qualquer lista de tarefas e funcionará corretamente.
 
-## Learn More
+- **I (Segregação de Interfaces):** Os componentes recebem apenas as props de que precisam.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  - Exemplo: `<TaskCard />` recebe um único objeto `task`, e não a lista inteira de tarefas.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **D (Inversão de Dependência):** Componentes de alto nível não dependem de implementações de baixo nível.
+  - Exemplo: A UI não manipula o estado diretamente; ela despacha ações (`dispatch(moveTask(...))`) e seleciona dados (`useSelector`) da store do Redux.
 
-### Code Splitting
+### 🔹 Clean Code
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Nomes Claros:** Variáveis e funções descrevem seu propósito (`pendingTasks`, `moveTask`).
+- **CSS Modules:** Estilização encapsulada em `*.module.css`, evitando conflitos globais.
+- **Estrutura de Pastas:** Organização por funcionalidade e camada para facilitar manutenção.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## ⚙️ Como Executar o Projeto
 
-### Making a Progressive Web App
+### ✅ Pré-requisitos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [Node.js](https://nodejs.org/) (14+)
+- `npm` ou `yarn`
 
-### Advanced Configuration
+### 🔹 1. Clonar o Repositório
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+git clone https://github.com/seu-usuario/dashboard-de-tarefas.git
+cd dashboard-de-tarefas
+```
 
-### Deployment
+### 🔹 2. Instalar Dependências
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm install
+```
 
-### `npm run build` fails to minify
+### 🔹 3. Executar a Aplicação
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm start
+```
+
+A aplicação será aberta em:  
+👉 <http://localhost:3000>
