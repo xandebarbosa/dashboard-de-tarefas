@@ -68,7 +68,7 @@ A aplicação é dividida em camadas de responsabilidade, com uma regra de depen
 ### 🔹 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/dashboard-de-tarefas.git
+git clone https://github.com/xandebarbosa/dashboard-de-tarefas.git
 cd dashboard-de-tarefas
 ```
 
